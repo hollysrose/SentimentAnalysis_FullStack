@@ -1,4 +1,4 @@
-package edu.ucmo.basic_demo;
+package edu.ucmo.spring_bare_bones;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;

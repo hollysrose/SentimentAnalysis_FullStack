@@ -12,7 +12,9 @@ The React application simply renders a header line on the index page.
 * Spring Boot
 * Spring Web
 * Spring Thymeleaf
+* Spring Data JPA
 * Spring Devtools
+* MySQL Connector
 * frontend-maven-plugin for React development
 
 # JS Packages Used:

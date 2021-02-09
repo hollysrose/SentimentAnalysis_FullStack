@@ -1,4 +1,4 @@
-package edu.ucmo.basic_demo.controller;
+package edu.ucmo.spring_bare_bones.controller;
 
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
