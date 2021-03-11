@@ -62,7 +62,7 @@
     <div class="w3-container" style="margin-top:80px" id="showcase">
         <h1 class="w3-jumbo"><b>Movie Reviews</b></h1>
         <h1 class="w3-xxxlarge w3-text-red"><b>Showcase.</b></h1>
-        <hr style="width:50px;border:5px solid red" class="w3-round">
+        <hr style="width:50px;border:5px solid #ff0000" class="w3-round">
     </div>
 
     <!-- Photo grid (modal) -->
@@ -191,27 +191,69 @@
         </div>
     </div>
 
-    <!-- Contact -->
+    <!-- Reviews -->
     <div class="w3-container" id="contact" style="margin-top:75px">
-        <h1 class="w3-xxxlarge w3-text-red"><b>Contact.</b></h1>
+        <h1 class="w3-xxxlarge w3-text-red"><b>Review.</b></h1>
         <hr style="width:50px;border:5px solid red" class="w3-round">
-        <p>Do you want us to style your home? Fill out the form and fill me in with the details :) We love meeting new people!</p>
-        <form action="/action_page.php" target="_blank">
+        <p>Leave a review on your most recent movie!</p>
+
+        <form >
             <div class="w3-section">
                 <label>Name</label>
-                <input class="w3-input w3-border" type="text" name="Name" required>
+                <input class="w3-input w3-border" type="text" name="Name" id="name_input" required>
             </div>
             <div class="w3-section">
                 <label>Email</label>
-                <input class="w3-input w3-border" type="text" name="Email" required>
+                <input class="w3-input w3-border" type="text" name="Email" id="email_input" required>
             </div>
             <div class="w3-section">
                 <label>Message</label>
-                <input class="w3-input w3-border" type="text" name="Message" required>
+                <input class="w3-input w3-border" type="text" name="Message" id="review_input" required>
             </div>
-            <button type="submit" class="w3-button w3-block w3-padding-large w3-red w3-margin-bottom">Send Message</button>
+            <button type="button" onclick="showName(); showEmail(); showReview();" class="w3-button w3-block w3-padding-large w3-red w3-margin-bottom">Submit Review</button>
         </form>
     </div>
+
+
+    <h3 class="w3-xxxlarge w3-text-red"><b>Posted Reviews.</b></h3>
+    <hr style="width:50px;border:5px solid red" class="w3-round">
+
+    <div class="w3-light-grey">
+        <form>
+            <script language="JavaScript">
+                // function showInput() {
+                //     document.getElementById('name').innerHTML =
+                //         "Posted By: " +
+                //         document.getElementById("name_input").value + " ";
+                //     "Email: " +
+                //     document.getElementById("email_input").value + " " +
+                //     "Review: " +
+                //     document.getElementById("message_input").value;
+                // }
+                function showName() {
+                    document.getElementById('name').innerHTML =
+                        "Posted By: " +
+                        document.getElementById("name_input").value + " ";
+                }
+                function showEmail() {
+                    document.getElementById('email').innerHTML =
+                        "Email: " +
+                        document.getElementById("email_input").value + " ";
+                }
+                function showReview() {
+                    document.getElementById('review').innerHTML =
+                        "Review: " +
+                        document.getElementById("review_input").value + " ";
+                }
+            </script>
+
+            <h4><span id='name'></span></h4>
+            <p class="w3-opacity"><span id='email'></span></p>
+            <p><span id='review'></span></p>
+
+        </form>
+    </div>
+
 
     <!-- End page content -->
 </div>
