@@ -20,7 +20,7 @@ public class Synapses {
 
         this.source = source;
 
-        destination = destination;
+        this.destination = destination;
 
         weight = (new Random().nextDouble()-0.45);
     }
