@@ -230,7 +230,7 @@ public class NeuralNetwork {
     }
 
 
-    public static String[] main(String[] args) throws IOException, InterruptedException {
+    public static void main(String[] args) throws IOException, InterruptedException {
 
         //Training
         //-----------------------------------------------------------//
@@ -290,8 +290,6 @@ public class NeuralNetwork {
         System.out.println("ACCURACY: " + (count/6)+ "%");
         //-----------------------------------------------------------//
 
-        //This will return a String[] of the sentiment result, accuracy?, and anything we want to pass to the frontend
-        return null;
     }
 
 }
