@@ -5,6 +5,6 @@ and then to read the other.
 After both Neuron and Synapses have been read, NeuralNetwork will make sense
 as the NeuralNetwork is simply made of Neurons and Synapses.
 
-DO NOT reading the WordVectorizer first.
+DO NOT worry about reading the WordVectorizer first.
 The WordVectorizer does make input for the NeuralNetwork, but
 the WordVectorizer is likely to be less interesting and a poor entrance point.
