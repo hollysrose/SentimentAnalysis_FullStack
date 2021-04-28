@@ -24,7 +24,7 @@ public class Synapse {
 
         this.right = right;
 
-        weight = (new Random().nextDouble() * 0.5 + 0.1);
+        weight = (new Random().nextDouble() * 0.00001 + 0.00001);
     }
 
     Synapse(Neuron left, Neuron right, double weight){
@@ -43,16 +43,29 @@ public class Synapse {
     Each synapse weight updates according to the parameter argument "update."
     "update" is the product of error and current input.
      */
-    public /*double*/ void updateWeight(double gradientDescent, double learningRate) {
+    public void updateWeight(double gradientDescent, double learningRate) {
 
-        /*return weight = weight - (learningRate * gradientDescent);*/
-        this.weight = weight - (learningRate * gradientDescent);
+        this.weight -= (learningRate * gradientDescent);
+    }
 
+    public void updateWeight_L(double gradientDescent, double leftWeights_LR) {
+
+        this.weight -= (leftWeights_LR * gradientDescent);
+    }
+
+    public void updateWeight_R(double gradientDescent, double rightWeights_LR) {
+
+        this.weight -= (rightWeights_LR * gradientDescent);
     }
 
     public double getWeight() {
 
         return weight;
+    }
+
+    public void setWeight(double newWeight) {
+
+        this.weight = newWeight;
     }
 
 }

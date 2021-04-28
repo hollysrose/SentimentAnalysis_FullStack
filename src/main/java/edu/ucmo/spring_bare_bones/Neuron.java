@@ -3,6 +3,7 @@ package edu.ucmo.spring_bare_bones;
 import java.util.ArrayList;
 import java.util.Random;
 
+
 public class Neuron {
 
     double bias;
@@ -11,8 +12,7 @@ public class Neuron {
     //The output of any neuron after processing its input(s)
     double output;
     //Synapses connect neurons from one layer of neurons to the next
-    ArrayList<Synapse> leftSynapses;
-    ArrayList<Synapse> rightSynapses;
+    ArrayList<Synapse> synapses;
 
     /*
     Constructor.
@@ -21,43 +21,42 @@ public class Neuron {
     */
     public Neuron() {
 
-        bias = new Random().nextDouble() * 0.5;
+        bias = new Random().nextDouble() * 0.5 + 0.05;
         output = 0;
-        leftSynapses = new ArrayList<Synapse>();
-        rightSynapses = new ArrayList<Synapse>();
+        synapses = new ArrayList<Synapse>();
     }
 
     public Neuron(double bias) {
 
         this.bias = bias;
         output = 0;
-        leftSynapses = new ArrayList<Synapse>();
-        rightSynapses = new ArrayList<Synapse>();
+        synapses = new ArrayList<Synapse>();
     }
 
     //For input layer only
     public void calculateOutput(double feedInput) {
-        output = ReLU(feedInput);
+        //output = ReLU(feedInput);
+        output = sigmoid(feedInput);
+        //output = Math.tanh(feedInput);
     }
 
     /*
     The neuronOutput() method is used by a neuron to multiply incoming inputs
     with respective weights. The resulting products are summed for the neuron's single output.
     */
-    public void calculateOutput() {
+    public void calculateOutput(int rightLayerSize) {
 
         double netInput = 0;
 
-        for(int i = 0; i < leftSynapses.size(); i++) {
+        for(int i = 0; i < synapses.size() - rightLayerSize; i++) {
 
-            Synapse synapse = leftSynapses.get(i); //Per synapse connected to this neuron...
+            Synapse synapse = synapses.get(i); //Per synapse connected to this neuron...
 
             /*
             Naming previous layer's "neuron i" as one end (source) for synapse and
             this neuron as one end (destination).
             */
             Neuron left = synapse.left;
-            Neuron right = synapse.right;
 
             /*
             (Not for the input layer (first layer) of neurons (that would not have neurons
@@ -79,13 +78,16 @@ public class Neuron {
         overpower others to a point that the other neurons are without influence whatsoever.
         This function forces our neuron's output to be within a -1 to 1 range.
         */
-        output = ReLU(netInput);
+        //output = ReLU(netInput);
+        output = sigmoid(netInput);
+        //output = Math.tanh(netInput);
     }
 
     /*
     This is called by hiddenNeuronOutput().
     ReLU stands for 'rectified linear unit'.
     */
+    /*
     static double ReLU(double netInput) {
 
         if(netInput > 0.0) {
@@ -95,51 +97,70 @@ public class Neuron {
             return 0.0;
         }
     }
-
+    */
     //This is the derivative of the RelU for backpropagation.
+    /*
     static double derivativeReLU(double number) {
 
         if(number > 0 ){
             return 1;
         }
         else{
-            return 0.1;
+            return 0.0;
         }
+    }
+    */
+
+    public double sigmoid(double netIntput){
+        double output = 0.0;
+        output = 1/(1 + Math.exp(-1.0 * netIntput));
+        return output;
+    }
+
+    public double derivativeSigmoid(double output){
+        return (output * (1 - output));
+    }
+
+    public double derivativeTanh(){
+        return (1 - Math.pow((Math.tanh(this.output)),2));
     }
 
 
     //getSynapses() returns the array of synapses between neurons
-    public ArrayList<Synapse> getLeftSynapses() {
+    public ArrayList<Synapse> getSynapses() {
 
-        return leftSynapses;
-
-    }
-
-    public ArrayList<Synapse> getRightSynapses() {
-
-        return rightSynapses;
+        return synapses;
 
     }
 
-    /*
+
     public Synapse getSynapse(int neuron) {
 
         return synapses.get(neuron);
 
     }
-    */
 
     //addSynapses() adds a synapse.
-    public void addLeftSynapse(Synapse synapse) {
+    public void addSynapse(Synapse synapse) {
 
-        leftSynapses.add(synapse);
+        synapses.add(synapse);
 
     }
 
-    public void addRightSynapse(Synapse synapse) {
+    public void updateBias_L(double bias, double leftBiases_LR){
+        this.bias -= (leftBiases_LR * bias);
+    }
 
-        rightSynapses.add(synapse);
+    public void updateBias_R(double bias, double rightBiases_LR){
+        this.bias -= (rightBiases_LR * bias);
+    }
 
+    public double getBias(){
+        return this.bias;
+    }
+
+    public void setBias(double bias){
+        this.bias = bias;
     }
 
 }

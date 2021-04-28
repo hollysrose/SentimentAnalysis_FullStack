@@ -135,15 +135,13 @@ public class Vectorizer {
 
         //Create correct answer vector for neural network to understand. 1 = positive, 0 = negative.
         for(int i = 0; i < trainingLabels.size(); i++){
-            double[] answer = new double[2];
+            double[] answer = new double[1];
             if(trainingLabels.get(i).equals("pos")){
                 answer[0] = 1;
-                answer[1] = 0;
                 trainingAnswers.add(answer);
             }
             else{
                 answer[0] = 0;
-                answer[1] = 1;
                 trainingAnswers.add(answer);
             }
 
@@ -183,7 +181,7 @@ public class Vectorizer {
 
     public String cleanText(String line, ArrayList<String> stopwords) throws IOException {
         //Remove non-word and non-sentiment characters
-        String useless = "[\u0097\u0096®§¢¡!#$%^&*¿?,.;?\"“0-9/;():_~`‘£₤½–\uF0B7¾¨»«·+-]";
+        String useless = "[\u0097\u0096Â®Â§Â¢Â¡!#$%^&*Â¿?,.;?\"â€œ0-9/;():_~`â€˜Â£â‚¤Â½â€“\uF0B7Â¾Â¨Â»Â«Â·+-]";
         line = line.replaceAll(useless,"");
         line = line.replaceAll("'","");
         //Lowercase
@@ -213,6 +211,7 @@ public class Vectorizer {
         String wont = "wont";
         String wouldnt = "wouldnt";
         String cant = "cant";
+        String not = "not";
 
         line = line.replaceAll(shouldnt, "no").replaceAll(dont, "no").replaceAll(arent, "no")
                 .replaceAll(couldnt, "no").replaceAll(didnt, "no").replaceAll(doesnt, "no")
@@ -220,7 +219,7 @@ public class Vectorizer {
                 .replaceAll(isnt, "no").replaceAll(mightnt, "no").replaceAll(mustnt, "no")
                 .replaceAll(neednt, "no").replaceAll(shant, "no").replaceAll(wasnt, "no")
                 .replaceAll(werent, "no").replaceAll(wont, "no").replaceAll(wouldnt, "no")
-                .replaceAll(cant,"no");
+                .replaceAll(cant,"no").replaceAll(not,"no");
 
         /*
         Create unique "anti-words" that are associated with negative reviews.
@@ -340,7 +339,7 @@ public class Vectorizer {
 
 
         for(int i = 0; i < newFrequency.length; i++){
-            if(numberOfDocumentsContainingToken[i] >= 500){
+            if(numberOfDocumentsContainingToken[i] >= 1000){
                 finalDictionary.add(newDictionary.get(i));
             }
         }
@@ -459,15 +458,13 @@ public class Vectorizer {
 
         //Create correct answer vector for neural network to understand. 1 = positive, 0 = negative.
         for(int i = 0; i < testLabels.size(); i++){
-            double[] answer = new double[2];
+            double[] answer = new double[1];
             if(testLabels.get(i).equals("pos")){
                 answer[0] = 1;
-                answer[1] = 0;
                 testAnswers.add(answer);
             }
             else{
                 answer[0] = 0;
-                answer[1] = 1;
                 testAnswers.add(answer);
             }
 
